@@ -8,4 +8,6 @@ class Booking(Base):
     platform = Column(String)
     guest_name = Column(String)
     check_in = Column(String)
-    check_out = Column(String)
+    check_out = Column(String) 
+    contact_info = Column(String)
+    contacted = Column(Boolean, default=False)

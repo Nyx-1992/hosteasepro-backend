@@ -27,11 +27,13 @@ def parse_calendar(url: str, property_name: str, platform: str):
             platform=platform,
             guest_name=event.name or "Unknown",
             check_in=str(event.begin.date()),
-            check_out=str(event.end.date())
+            check_out=str(event.end.date()),
+            contact_info=event.description or "Not provided",
+            contacted=False
         )
         db.add(booking)
     db.commit()
-    print(f"Imported bookings from {platform} - {property_name}")
+    print(f"✅ Imported bookings from {platform} -- {property_name}")
 
 def import_all():
     for property_name, sources in feeds.items():
@@ -39,7 +41,7 @@ def import_all():
             try:
                 parse_calendar(url, property_name, platform)
             except Exception as e:
-                print(f"Failed to import from {platform} - {property_name}: {e}")
+                print(f"❌ Failed to import from {platform} -- {property_name}: {e}")
 
 if __name__ == "__main__":
     import_all()
